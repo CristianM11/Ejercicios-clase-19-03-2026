@@ -1,0 +1,48 @@
+using System;
+
+class program
+{
+   static void Main()
+   {
+       int opcion;
+       Console.WriteLine("===CALCULAR AREAS===");
+       Console.WriteLine("1. Calcular area cuadrado");
+       Console.WriteLine("2. Calcular area rectangulo");
+       Console.WriteLine("3. Salir");
+       opcion = int.Parse(Console.ReadLine());
+       do
+       {
+           switch(opcion)
+           {
+                case 1:
+                    areaCuadrado();
+                    break;
+                case 2:
+                    areaRectangulo();
+                    break;
+           }
+       }while (opcion != 3);
+   }
+
+   static void areaCuadrado()
+   {
+       int opcion;
+       int lado;
+       Console.Write("Ingrese uno de los lados del cuadrado: ");
+       lado = int.Parse(Console.ReadLine());
+       int perimetro = 4 * lado;
+       Console.WriteLine($"El perimetro del cuadrado es: {perimetro}");
+       opcion = 3;
+   }
+   static void areaRectangulo()
+   {
+       int opcion;
+       Console.WriteLine("Ingrese la altura del rectangulo");
+       double alturaRect = Convert.ToDouble(Console.ReadLine());
+        Console.WriteLine("Ingrese la base del rectangulo");
+       double baseRect = Convert.ToDouble(Console.ReadLine());
+       double perimetro = 2 * (alturaRect + baseRect);
+       Console.WriteLine ($"El perimetro del rectangulo es: {perimetro}");
+       opcion = 3;
+   }
+}
