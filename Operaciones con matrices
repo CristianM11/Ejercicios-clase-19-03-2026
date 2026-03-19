@@ -1,0 +1,188 @@
+using System;
+class program
+{
+    static void Suma()
+    {
+        Console.WriteLine("\n--- SUMA DE MATRICES ---");
+        Console.Write("Ingrese filas: ");
+        int filas = int.Parse(Console.ReadLine());
+        Console.Write("Ingrese columnas: ");
+        int columnas = int.Parse(Console.ReadLine());
+        
+        int[,] matriz1 = LeerMatriz(filas, columnas, "Primera");
+        int[,] matriz2 = LeerMatriz(filas, columnas, "Segunda");
+        
+        int[,] resultado = new int[filas, columnas];
+        
+        for (int i = 0; i < filas; i++)
+        {
+            for (int j = 0; j < columnas; j++)
+            {
+                resultado[i, j] = matriz1[i, j] + matriz2[i, j];
+            }
+        }
+        
+        Console.WriteLine("\nResultado de A + B:");
+        MostrarMatriz(resultado);
+    }
+    
+    static void Resta()
+    {
+        Console.WriteLine("\n--- RESTA DE MATRICES ---");
+        Console.Write("Ingrese filas: ");
+        int filas = int.Parse(Console.ReadLine());
+        Console.Write("Ingrese columnas: ");
+        int columnas = int.Parse(Console.ReadLine());
+        
+        int[,] matriz1 = LeerMatriz(filas, columnas, "Primera");
+        int[,] matriz2 = LeerMatriz(filas, columnas, "Segunda");
+        
+        int[,] resultado = new int[filas, columnas];
+        
+        for (int i = 0; i < filas; i++)
+        {
+            for (int j = 0; j < columnas; j++)
+            {
+                resultado[i, j] = matriz1[i, j] - matriz2[i, j];
+            }
+        }
+        
+        Console.WriteLine("\nResultado de A - B:");
+        MostrarMatriz(resultado);
+    }
+    
+    static void MultiplicacionMa()
+    {
+        Console.WriteLine("\n--- MULTIPLICACIÓN DE MATRICES ---");
+        Console.Write("Ingrese filas de la primera matriz: ");
+        int filas1 = int.Parse(Console.ReadLine());
+        Console.Write("Ingrese columnas de la primera matriz: ");
+        int columnas1 = int.Parse(Console.ReadLine());
+        
+        int[,] matriz1 = LeerMatriz(filas1, columnas1, "Primera");
+        
+        Console.Write("Ingrese filas de la segunda matriz: ");
+        int filas2 = int.Parse(Console.ReadLine());
+        Console.Write("Ingrese columnas de la segunda matriz: ");
+        int columnas2 = int.Parse(Console.ReadLine());
+        
+        // Validar que columnas1 = filas2
+        if (columnas1 != filas2)
+        {
+            Console.WriteLine("ERROR: Las columnas de A deben ser iguales a las filas de B");
+            return;
+        }
+        
+        int[,] matriz2 = LeerMatriz(filas2, columnas2, "Segunda");
+        
+        int[,] resultado = new int[filas1, columnas2];
+        
+        // A(m×n) × B(n×p) = C(m×p)
+        for (int i = 0; i < filas1; i++)
+        {
+            for (int j = 0; j < columnas2; j++)
+            {
+                resultado[i, j] = 0;
+                for (int k = 0; k < columnas1; k++)
+                {
+                    resultado[i, j] += matriz1[i, k] * matriz2[k, j];
+                }
+            }
+        }
+        
+        Console.WriteLine("\nResultado de A × B:");
+        MostrarMatriz(resultado);
+    }
+    
+    static void MultiplicacionEs()
+    {
+        Console.WriteLine("\n--- MULTIPLICACIÓN POR ESCALAR ---");
+        Console.Write("Ingrese filas: ");
+        int filas = int.Parse(Console.ReadLine());
+        Console.Write("Ingrese columnas: ");
+        int columnas = int.Parse(Console.ReadLine());
+        
+        int[,] matriz = LeerMatriz(filas, columnas, "");
+        
+        Console.Write("Ingrese el escalar (número): ");
+        int escalar = int.Parse(Console.ReadLine());
+        
+        int[,] resultado = new int[filas, columnas];
+        
+        for (int i = 0; i < filas; i++)
+        {
+            for (int j = 0; j < columnas; j++)
+            {
+                resultado[i, j] = matriz[i, j] * escalar;
+            }
+        }
+        
+        Console.WriteLine($"\nResultado de A × {escalar}:");
+        MostrarMatriz(resultado);
+    }
+    static int[,] LeerMatriz(int filas, int columnas, string nombre)
+    {
+        int[,] matriz = new int[filas, columnas];
+        
+        Console.WriteLine($"\nIngrese los datos de la matriz {nombre}:");
+        for (int i = 0; i < filas; i++)
+        {
+            for (int j = 0; j < columnas; j++)
+            {
+                Console.Write($"Elemento [{i},{j}]: ");
+                matriz[i, j] = int.Parse(Console.ReadLine());
+            }
+        }
+        
+        return matriz;
+    }
+    
+   
+    static void MostrarMatriz(int[,] matriz)
+    {
+        int filas = matriz.GetLength(0);
+        int columnas = matriz.GetLength(1);
+        
+        for (int i = 0; i < filas; i++)
+        {
+            for (int j = 0; j < columnas; j++)
+            {
+                Console.Write(matriz[i, j] + "\t");
+            }
+            Console.WriteLine();
+        }
+    }
+
+    static void Main()
+    {
+        int opcion;
+        Console.WriteLine("===MENÚ===");
+        Console.WriteLine("Ingrese la operación que desea realizar con las matrices: ");
+        Console.WriteLine("1. Suma");
+        Console.WriteLine("2. Resta");
+        Console.WriteLine("3. Multiplicación de matrices");
+        Console.WriteLine("4. Multiplicación por un escalar");
+        Console.WriteLine("5. Salir");
+        Console.Write("Opcion: ");
+        opcion = int.Parse(Console.ReadLine());
+        do
+        {
+            switch (opcion)
+            {
+                case 1:
+                    Suma();
+                    break;
+                case 2:
+                    Resta();
+                    break;
+                case 3:
+                    MultiplicacionMa();
+                    break;
+                case 4:
+                    MultiplicacionEs();
+                    break;
+            }
+        } while (opcion != 5);
+    }
+}
+
